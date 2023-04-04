@@ -10,7 +10,7 @@ public class Main {
         Link link2 = LinkParser.parse(url2);
         System.out.println(link2.parse()); // Выводит id
 
-        String url3 = "https://sdo.ugatu.su/";
+        String url3 = "https://ugatu.su/";
         Link link3 = LinkParser.parse(url3);
         System.out.println(link3.parse()); // Выводит null
     }
