@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.telegram.command.Command;
 import ru.tinkoff.edu.java.bot.telegram.command.HelpCommand;
+import ru.tinkoff.edu.java.bot.telegram.command.StartCommand;
 
 import java.util.Arrays;
 import java.util.List;
