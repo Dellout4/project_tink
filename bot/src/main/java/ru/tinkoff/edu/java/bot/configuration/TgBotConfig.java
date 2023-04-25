@@ -4,8 +4,8 @@ import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.tinkoff.edu.java.bot.logic.wrapper.TgUpdaterLinkBot;
 import ru.tinkoff.edu.java.bot.logic.commands.InputHandler;
+import ru.tinkoff.edu.java.bot.logic.wrapper.TgUpdaterLinkBot;
 
 @Configuration
 @RequiredArgsConstructor

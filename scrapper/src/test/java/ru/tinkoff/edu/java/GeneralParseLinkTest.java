@@ -8,7 +8,7 @@ import junit.framework.TestSuite;
  * Unit test for simple App.
  */
 public class GeneralParseLinkTest
-    extends TestCase
+        extends TestCase
 {
     /**
      * Create the test case
