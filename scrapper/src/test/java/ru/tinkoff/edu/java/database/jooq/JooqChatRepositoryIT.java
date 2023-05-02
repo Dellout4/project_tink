@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.java.database.jooq;
 
 import lombok.RequiredArgsConstructor;
-import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +8,22 @@ import org.springframework.boot.test.autoconfigure.jooq.JooqTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
 import ru.tinkoff.edu.java.database.IntegrationEnvironment;
-import ru.tinkoff.edu.java.database.JdbcUtils;
+import ru.tinkoff.edu.java.database.utils.Utils;
 import ru.tinkoff.edu.java.scrapper.configuration.DBConfiguration;
-import ru.tinkoff.edu.java.scrapper.configuration.db.TestConfiguration;
 import ru.tinkoff.edu.java.scrapper.exceptions.repository.BadEntityException;
-import ru.tinkoff.edu.java.scrapper.persistence.entity.jdbc.ChatData;
+import ru.tinkoff.edu.java.scrapper.persistence.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.JooqChatRepository;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chats.CHATS;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @JooqTest
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@ContextConfiguration(classes = {JooqChatRepository.class, DBConfiguration.class, TestConfiguration.class, JdbcUtils.class})
-public class JooqChatRepositoryIT extends IntegrationEnvironment{
-    private final DSLContext dsl;
+@ContextConfiguration(classes = {JooqChatRepository.class, DBConfiguration.class, Utils.class})
+public class JooqChatRepositoryIT extends IntegrationEnvironment {
     private final JooqChatRepository chatRepository;
-    private final JdbcUtils utils;
-    private ChatData chatData;
+    private final Utils utils;
+    private Chat chatData;
 
     @BeforeEach
     public void initChatData() {
@@ -41,17 +38,7 @@ public class JooqChatRepositoryIT extends IntegrationEnvironment{
         chatRepository.add(chatData);
 
         // then
-        ChatData result = dsl.select(CHATS.ID, CHATS.LAST_CALL_DATE)
-                .from(CHATS)
-                .where(CHATS.ID.eq(chatData.getId()))
-                .fetchOne()
-                .map(
-                        record -> ChatData.builder()
-                                .id(record.getValue(CHATS.ID))
-                                .lastCallDate(record.getValue(CHATS.LAST_CALL_DATE))
-                                .build()
-                );
-        utils.assertChatResult(result, chatData);
+        utils.assertChatResult(chatData);
     }
 
     @Test
@@ -74,15 +61,12 @@ public class JooqChatRepositoryIT extends IntegrationEnvironment{
 
     @Test
     void addNullChat_ThrowsBadEntityException() {
-        // given
-        ChatData nullChatData = null;
-
-        // then/when
-        assertThrows(BadEntityException.class, () -> chatRepository.add(nullChatData));
+        // given/then/when
+        assertThrows(BadEntityException.class, () -> chatRepository.add(null));
     }
 
     @Test
-    void removeExistsChatId_OK () {
+    void removeExistsChatId_OK() {
         // given
         chatRepository.add(chatData);
 
@@ -94,7 +78,7 @@ public class JooqChatRepositoryIT extends IntegrationEnvironment{
     }
 
     @Test
-    void removeNotExistsChatId_OK () {
+    void removeNotExistsChatId_OK() {
         // given
 
         // when
@@ -102,5 +86,14 @@ public class JooqChatRepositoryIT extends IntegrationEnvironment{
 
         // then
         assertTrue(utils.checkMissingDataChat(chatData.getId()));
+    }
+
+    @Test
+    void removeNullChatId_ThrowsBadEntityException() {
+        // given/when/then
+        assertThrows(
+                BadEntityException.class,
+                () -> chatRepository.remove(null)
+        );
     }
 }

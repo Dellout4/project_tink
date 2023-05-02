@@ -2,14 +2,14 @@ package ru.tinkoff.edu.java.scrapper.persistence.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.tinkoff.edu.java.scrapper.persistence.entity.jpa.ChatLink;
-import ru.tinkoff.edu.java.scrapper.persistence.entity.jpa.ChatLinkPK;
+import ru.tinkoff.edu.java.scrapper.persistence.entity.ChatLink;
+import ru.tinkoff.edu.java.scrapper.persistence.entity.ChatLinkPK;
 
 import java.util.List;
 
 public interface JpaChatLinkRepository extends JpaRepository<ChatLink, ChatLinkPK> {
-    @Query("SELECT t.id.linkId FROM ChatLink t where t.id.chatId = :chatId")
+    @Query(value = "SELECT link_id FROM chat_link t where link_id = :chatId", nativeQuery = true)
     List<Long> findAllByChatId(Long chatId);
-    @Query("SELECT t.id.chatId FROM ChatLink t where t.id.linkId = :linkId")
+    @Query(value = "SELECT chat_id FROM chat_link t where link_id = :linkId", nativeQuery = true)
     List<Long> findAllByLinkId(Long linkId);
 }

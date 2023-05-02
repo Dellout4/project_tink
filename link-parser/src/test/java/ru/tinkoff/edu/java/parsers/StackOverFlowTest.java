@@ -6,8 +6,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import ru.tinkoff.edu.java.GeneralParseLink;
 import ru.tinkoff.edu.java.responses.StackOverflowParseResponse;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class StackOverFlowTest {
     @ParameterizedTest
@@ -24,7 +24,7 @@ public class StackOverFlowTest {
         // given
 
         // when
-        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().main(link);
+        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().start(link);
 
         // then
         assertNull(response);
@@ -41,7 +41,7 @@ public class StackOverFlowTest {
         // given
 
         // when
-        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().main(link);
+        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().start(link);
 
         // then
         assertEquals(response.questionId(), "68538851");
@@ -53,7 +53,7 @@ public class StackOverFlowTest {
         String link = "https://stackoverflow.com/questions/1";
 
         // when
-        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().main(link);
+        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().start(link);
 
         // then
         assertEquals(response.questionId(), "1");
@@ -65,7 +65,7 @@ public class StackOverFlowTest {
         String link = "https://stackoverflow.com/questions/1111111111";
 
         // when
-        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().main(link);
+        StackOverflowParseResponse response = (StackOverflowParseResponse) new GeneralParseLink().start(link);
 
         // then
         assertEquals(response.questionId(), "1111111111");

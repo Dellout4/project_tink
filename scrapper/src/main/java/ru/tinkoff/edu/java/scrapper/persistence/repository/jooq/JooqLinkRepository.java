@@ -1,17 +1,19 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jooq;
 
 import lombok.RequiredArgsConstructor;
-import org.jooq.*;
+import org.jooq.DSLContext;
+import org.jooq.JSONB;
 import org.jooq.Record;
+import org.jooq.SelectQuery;
 import org.springframework.dao.EmptyResultDataAccessException;
-import ru.tinkoff.edu.java.scrapper.persistence.entity.jdbc.LinkData;
+import ru.tinkoff.edu.java.scrapper.persistence.entity.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.repository.LinkRepository;
-
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Links.LINKS;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
+
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Links.LINKS;
 
 @RequiredArgsConstructor
 public class JooqLinkRepository implements LinkRepository {
@@ -19,12 +21,12 @@ public class JooqLinkRepository implements LinkRepository {
     private static final ConverterJson CONVERTER = new ConverterJson();
 
     @Override
-    public void add(LinkData linkData) {
+    public void add(Link linkData) {
         checkEntity(linkData);
         dsl.insertInto(LINKS, LINKS.LINK, LINKS.DOMAIN_ID, LINKS.PAGE_UPDATED_DATE, LINKS.DATA_CHANGES)
                 .values(linkData.getLink(),
-                        linkData.getDomainId(),
-                        linkData.getPageUpdateDate().toLocalDateTime(),
+                        linkData.getDomain().getId(),
+                        linkData.getPageUpdatedDate().toLocalDateTime(),
                         JSONB.jsonb(CONVERTER.to(linkData.getDataChanges()))
                 ).execute();
     }
@@ -61,7 +63,7 @@ public class JooqLinkRepository implements LinkRepository {
     }
 
     @Override
-    public LinkData getByLink(String link) {
+    public Link getByLink(String link) {
         return dsl.select(LINKS.fields())
                 .from(LINKS)
                 .where(LINKS.LINK.eq(link))
@@ -71,7 +73,7 @@ public class JooqLinkRepository implements LinkRepository {
     }
 
     @Override
-    public List<LinkData> findAll(String nameField, boolean orderASC, Integer limit) {
+    public List<Link> findAll(String nameField, boolean orderASC, Integer limit) {
         SelectQuery<Record> query = dsl.selectQuery();
         query.addSelect(LINKS.fields());
         query.addFrom(LINKS);
@@ -90,7 +92,7 @@ public class JooqLinkRepository implements LinkRepository {
     }
 
     @Override
-    public List<LinkData> getByLinkIds(List<Long> arrChatLink) {
+    public List<Link> getByLinkIds(List<Long> arrChatLink) {
         return dsl.select(LINKS.fields())
                 .from(LINKS)
                 .where(LINKS.ID.in(arrChatLink))

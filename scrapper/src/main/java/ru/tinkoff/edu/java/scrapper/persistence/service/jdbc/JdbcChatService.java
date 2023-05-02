@@ -3,17 +3,20 @@ package ru.tinkoff.edu.java.scrapper.persistence.service.jdbc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import ru.tinkoff.edu.java.scrapper.exceptions.repository.DuplicateUniqueFieldException;
-import ru.tinkoff.edu.java.scrapper.persistence.entity.jdbc.ChatData;
+import ru.tinkoff.edu.java.scrapper.persistence.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.repository.ChatRepository;
 import ru.tinkoff.edu.java.scrapper.persistence.service.ChatService;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+
 @RequiredArgsConstructor
-public class ChatServiceImpl implements ChatService {
+public class JdbcChatService implements ChatService {
     private final ChatRepository chatRepository;
 
     @Override
     public void register(Long tgChatId) {
-        ChatData chatData = ChatData.builder().id(tgChatId).build();
+        Chat chatData = new Chat(tgChatId, OffsetDateTime.now(), LocalDate.now());
         try {
             chatRepository.add(chatData);
         } catch (DuplicateKeyException e) {

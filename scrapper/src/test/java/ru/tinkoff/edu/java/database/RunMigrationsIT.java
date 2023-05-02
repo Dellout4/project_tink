@@ -3,7 +3,8 @@ package ru.tinkoff.edu.java.database;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

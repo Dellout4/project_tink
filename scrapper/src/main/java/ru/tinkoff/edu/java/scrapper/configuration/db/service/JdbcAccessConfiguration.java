@@ -17,9 +17,9 @@ import ru.tinkoff.edu.java.scrapper.persistence.repository.repository.LinkReposi
 import ru.tinkoff.edu.java.scrapper.persistence.service.ChatLinkService;
 import ru.tinkoff.edu.java.scrapper.persistence.service.ChatService;
 import ru.tinkoff.edu.java.scrapper.persistence.service.LinkService;
-import ru.tinkoff.edu.java.scrapper.persistence.service.jdbc.ChatLinkServiceImpl;
-import ru.tinkoff.edu.java.scrapper.persistence.service.jdbc.ChatServiceImpl;
-import ru.tinkoff.edu.java.scrapper.persistence.service.jdbc.LinkServiceImpl;
+import ru.tinkoff.edu.java.scrapper.persistence.service.jdbc.JdbcChatLinkService;
+import ru.tinkoff.edu.java.scrapper.persistence.service.jdbc.JdbcChatService;
+import ru.tinkoff.edu.java.scrapper.persistence.service.jdbc.JdbcLinkService;
 
 @Configuration
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jdbc")
@@ -28,7 +28,6 @@ public class JdbcAccessConfiguration {
     private final JdbcTemplate jdbcTemplate;
     @Bean
     public ChatLinkRepository chatLinkRepository() {
-        System.out.println("Зашли");
         return new JdbcChatLinkRepository(jdbcTemplate);
     }
 
@@ -47,15 +46,14 @@ public class JdbcAccessConfiguration {
         return new JdbcLinkRepository(jdbcTemplate);
     }
 
-    // services
     @Bean
     public ChatLinkService chatLinkService(ChatLinkRepository chatLinkRepository) {
-        return new ChatLinkServiceImpl(chatLinkRepository);
+        return new JdbcChatLinkService(chatLinkRepository);
     }
 
     @Bean
     public ChatService chatService(ChatRepository chatRepository) {
-        return new ChatServiceImpl(chatRepository);
+        return new JdbcChatService(chatRepository);
     }
 
     @Bean
@@ -66,6 +64,6 @@ public class JdbcAccessConfiguration {
             ChatLinkService chatLinkService,
             SitesMap sitesMap
     ) {
-        return new LinkServiceImpl(domainRepository, chatLinkRepository, linkRepository, chatLinkService, sitesMap);
+        return new JdbcLinkService(domainRepository, chatLinkRepository, linkRepository, chatLinkService, sitesMap);
     }
 }
