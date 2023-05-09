@@ -14,8 +14,7 @@ import ru.tinkoff.edu.java.scrapper.exceptions.repository.BadEntityException;
 import ru.tinkoff.edu.java.scrapper.persistence.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.JooqChatRepository;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @JooqTest
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

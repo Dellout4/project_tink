@@ -21,8 +21,7 @@ import ru.tinkoff.edu.java.scrapper.persistence.entity.Domain;
 import ru.tinkoff.edu.java.scrapper.persistence.entity.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc.JdbcChatLinkRepository;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

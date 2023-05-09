@@ -1,11 +1,9 @@
-package ru.tinkoff.edu.java.parsers;
-
-import ru.tinkoff.edu.java.responses.BaseParseResponse;
+package ru.tinkoff.edu.java.link_parser.parsers;
 
 import java.util.Optional;
+import ru.tinkoff.edu.java.link_parser.responses.BaseParseResponse;
 
-
-public sealed abstract class BaseParser implements Parser permits GitHubParser, StackOverflowParser{
+public sealed abstract class BaseParser implements Parser permits GitHubParser, StackOverflowParser {
     private Parser successor;
 
     public void setSuccessor(Parser successor) {

@@ -18,8 +18,7 @@ import ru.tinkoff.edu.java.scrapper.persistence.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.java.scrapper.persistence.service.jpa.JpaChatService;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = ScrapperApplication.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

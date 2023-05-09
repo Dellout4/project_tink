@@ -3,14 +3,12 @@ package ru.tinkoff.edu.java.logic.commands;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
-import org.junit.jupiter.api.BeforeEach;
-
 import java.util.Random;
-
+import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandTest {
+public abstract class CommandTest {
     protected Long chat_id;
     protected Message message;
 

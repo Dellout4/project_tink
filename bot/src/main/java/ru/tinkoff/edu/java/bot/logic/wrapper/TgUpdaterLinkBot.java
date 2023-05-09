@@ -5,15 +5,13 @@ import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import ru.tinkoff.edu.java.bot.configuration.ApplicationConfig;
 import ru.tinkoff.edu.java.bot.logic.commands.BaseCommand;
 import ru.tinkoff.edu.java.bot.logic.commands.InitCommands;
 import ru.tinkoff.edu.java.bot.logic.commands.InputHandler;
-
-import java.util.List;
-import java.util.Map;
-
 
 @RequiredArgsConstructor
 public class TgUpdaterLinkBot implements TgBot {

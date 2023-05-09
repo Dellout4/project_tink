@@ -18,8 +18,7 @@ import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.ConverterJson;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.JooqDomainRepository;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.JooqLinkRepository;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Domains.DOMAINS;
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Links.LINKS;
 
@@ -54,7 +53,7 @@ public class JooqLinkRepositoryIT extends IntegrationEnvironment {
                 .where(LINKS.LINK.eq(linkData.getLink()))
                 .fetchOne()
                 .map(record -> new Link(
-                            null,
+                                null,
                                 record.getValue(LINKS.LINK),
                                 null, null, null,
                                 record.getValue(LINKS.DOMAIN_ID),

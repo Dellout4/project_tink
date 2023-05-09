@@ -2,8 +2,8 @@ package ru.tinkoff.edu.java.scrapper.persistence.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.tinkoff.edu.java.GeneralParseLink;
-import ru.tinkoff.edu.java.responses.BaseParseResponse;
+import ru.tinkoff.edu.java.link_parser.GeneralParseLink;
+import ru.tinkoff.edu.java.link_parser.responses.BaseParseResponse;
 import ru.tinkoff.edu.java.scrapper.clients.clients.site.BaseSiteClient;
 import ru.tinkoff.edu.java.scrapper.clients.clients.site.SitesMap;
 import ru.tinkoff.edu.java.scrapper.clients.dto.LinkUpdateRequest;
@@ -32,19 +32,22 @@ public class GenerateUpdatesService {
 
         URI uriLink = URI.create(clearLinkData.getLink());
         BaseSiteClient client = sitesMap.getClient(uriLink.getHost());
-        BaseParseResponse parseResponse = new GeneralParseLink().start(clearLinkData.getLink()); // парсим ссылку и получаем необходимые поля
+        // парсим ссылку и получаем необходимые поля
+        BaseParseResponse parseResponse = new GeneralParseLink().start(clearLinkData.getLink());
 
         OffsetDateTime updatedDate = client.getUpdatedDate(parseResponse);
         OffsetDateTime dbUpdatedDate = clearLinkData.getPageUpdatedDate();
-        if (dbUpdatedDate.equals(updatedDate)) // если время обновлений совпадает, то выходим
+        if (dbUpdatedDate.equals(updatedDate)) { // если время обновлений совпадает, то выходим
             return Optional.empty();
+        }
 
         Map<String, String> responseDataChanges = client.getUpdates(parseResponse); // Обновленные данный из апи
         Map<String, String> dataChanges = clearLinkData.getDataChanges(); // Данные из бд, которые отслеживаем у ссылки
 
         String botText = generateBotMessage(responseDataChanges, dataChanges);
 
-        linkService.updateDataChanges(responseDataChanges, updatedDate, clearLinkData.getId()); // записываю обновленные данные в бд
+        // записываю обновленные данные в бд
+        linkService.updateDataChanges(responseDataChanges, updatedDate, clearLinkData.getId());
         return Optional.of(
                 new LinkUpdateRequest(
                         clearLinkData.getId(),

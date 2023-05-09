@@ -3,23 +3,25 @@ package ru.tinkoff.edu.java.database.jdbc;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.core.DataClassRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.ContextConfiguration;
 import ru.tinkoff.edu.java.database.IntegrationEnvironment;
 import ru.tinkoff.edu.java.database.utils.Utils;
 import ru.tinkoff.edu.java.scrapper.configuration.DBConfiguration;
 import ru.tinkoff.edu.java.scrapper.configuration.db.TestConfiguration;
 import ru.tinkoff.edu.java.scrapper.exceptions.repository.BadEntityException;
 import ru.tinkoff.edu.java.scrapper.persistence.entity.Chat;
+import org.junit.jupiter.api.Test;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc.JdbcChatRepository;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

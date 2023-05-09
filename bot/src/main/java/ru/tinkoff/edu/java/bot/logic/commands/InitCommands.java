@@ -1,9 +1,8 @@
 package ru.tinkoff.edu.java.bot.logic.commands;
 
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.stereotype.Component;
 
 @Component
 public class InitCommands {

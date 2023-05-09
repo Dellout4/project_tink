@@ -2,13 +2,12 @@ package ru.tinkoff.edu.java.bot.logic.commands;
 
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
+import java.util.Map;
 import lombok.Getter;
 import ru.tinkoff.edu.java.bot.logic.wrapper.SendSimpleMessage;
 
-import java.util.Map;
-
 @Getter
-public class HelpCommand implements BaseCommand{
+public class HelpCommand implements BaseCommand {
     private static final Map<String, BaseCommand> COMMANDS = InitCommands.getAllCommands();
     private static final String NAME = "/help";
 
@@ -21,6 +20,7 @@ public class HelpCommand implements BaseCommand{
     public String getDescription() {
         return NAME + " -> выводит все доступные команды";
     }
+
     @Override
     public SendMessage execute(Message message) {
         StringBuilder text = new StringBuilder("Список всех команд:");

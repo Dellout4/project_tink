@@ -3,16 +3,19 @@ package ru.tinkoff.edu.java.logic.commands;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import ru.tinkoff.edu.java.bot.logic.commands.InputHandler;
-
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RequiredArgsConstructor
+@SpringBootTest
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Import(value = {InputHandler.class})
 public class InputHandlerTest {
     private final InputHandler inputHandler;
     @Test

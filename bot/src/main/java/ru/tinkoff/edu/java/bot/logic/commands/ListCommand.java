@@ -2,20 +2,20 @@ package ru.tinkoff.edu.java.bot.logic.commands;
 
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ru.tinkoff.edu.java.bot.clients.ScrapperClient;
 import ru.tinkoff.edu.java.bot.dto.scrapper.LinkResponse;
 import ru.tinkoff.edu.java.bot.logic.wrapper.SendSimpleMessage;
 
-import java.util.List;
-
 @Getter
 @RequiredArgsConstructor
 public class ListCommand implements BaseCommand {
-    private final ScrapperClient scrapperClient;
-    private static final String LINKS_MISSING = "Пока нет ни одной отслеживаемой ссылки.\nДобавить ссылку можно с помощью команды /track";
+    private static final String LINKS_MISSING =
+            "Пока нет ни одной отслеживаемой ссылки.\nДобавить ссылку можно с помощью команды /track";
     private static final String NAME = "/list";
+    private final ScrapperClient scrapperClient;
 
     @Override
     public String getName() {
@@ -30,7 +30,6 @@ public class ListCommand implements BaseCommand {
     @Override
     public SendMessage execute(Message message) {
         List<LinkResponse> links = scrapperClient.getListLinks(message.chat().id()).links();
-//        Set<URI> links = ManagerCollection.getLinks();
         String text;
         if (links.isEmpty()) {
             text = LINKS_MISSING;

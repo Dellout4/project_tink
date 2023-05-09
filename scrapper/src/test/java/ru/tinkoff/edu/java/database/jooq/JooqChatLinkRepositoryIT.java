@@ -15,7 +15,7 @@ import ru.tinkoff.edu.java.scrapper.exceptions.repository.BadEntityException;
 import ru.tinkoff.edu.java.scrapper.persistence.entity.*;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.JooqChatLinkRepository;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.Tables.CHATS;
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.Tables.CHAT_LINK;

@@ -1,7 +1,13 @@
 package ru.tinkoff.edu.java.bot.configuration;
 
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.ClassMapper;
@@ -12,13 +18,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.tinkoff.edu.java.bot.dto.api.LinkUpdateRequest;
 
-import java.util.Map;
-
 @Configuration
 @RequiredArgsConstructor
 public class RabbitMQConfig {
-    private final ApplicationConfig config;
     private static final String DTO_PATH_FOR_RABBIT = "ru.tinkoff.edu.java.scrapper.clients.dto.LinkUpdateRequest";
+    private final ApplicationConfig config;
 
     @Bean
     public CachingConnectionFactory connectionFactory() {
@@ -32,7 +36,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public ClassMapper classMapper(){
+    public ClassMapper classMapper() {
         DefaultClassMapper classMapper = new DefaultClassMapper();
         classMapper.setIdClassMapping(
                 Map.of(DTO_PATH_FOR_RABBIT, LinkUpdateRequest.class)
@@ -41,7 +45,10 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(MessageConverter jsonMessageConverter, CachingConnectionFactory connectionFactory) {
+    public RabbitTemplate rabbitTemplate(
+            MessageConverter jsonMessageConverter,
+            CachingConnectionFactory connectionFactory
+    ) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter);
         return rabbitTemplate;

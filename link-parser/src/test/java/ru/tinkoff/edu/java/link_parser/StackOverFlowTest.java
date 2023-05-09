@@ -1,13 +1,12 @@
-package ru.tinkoff.edu.java.parsers;
+package ru.tinkoff.edu.java.link_parser;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import ru.tinkoff.edu.java.GeneralParseLink;
-import ru.tinkoff.edu.java.responses.StackOverflowParseResponse;
+import ru.tinkoff.edu.java.link_parser.responses.StackOverflowParseResponse;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StackOverFlowTest {
     @ParameterizedTest

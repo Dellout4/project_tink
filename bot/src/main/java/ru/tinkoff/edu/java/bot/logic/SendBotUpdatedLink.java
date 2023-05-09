@@ -1,12 +1,11 @@
 package ru.tinkoff.edu.java.bot.logic;
 
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.bot.dto.api.LinkUpdateRequest;
 import ru.tinkoff.edu.java.bot.logic.wrapper.SendSimpleMessage;
 import ru.tinkoff.edu.java.bot.logic.wrapper.TgBot;
-
-import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
