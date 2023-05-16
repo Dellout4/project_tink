@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress XmlUnusedNamespaceDeclaration -->
 <databaseChangeLog
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <include file="scripts/sql/2023-04-06-CRS-1_create_chats_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/sql/2023-04-06-CRS-2_create_domains_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/sql/2023-04-06-CRS-3_create_links_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/sql/2023-04-06-CRS-4_create_chat_link_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/sql/2023-04-15-CRS-5_alter_table_links_update_date.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/sql/2023-04-25-CRS-6_alter_default_id_in_links_and_domains_tables.sql" relativeToChangelogFile="true"/>
+    <include file="link-info-schema.sql"/>
+    <include file="link-info-insert.sql"/>
 </databaseChangeLog>
